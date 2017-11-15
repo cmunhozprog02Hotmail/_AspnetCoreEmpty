@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using AspnetCoreEmpty.Services;
 
 namespace AspnetCoreEmpty
 {
@@ -29,10 +30,13 @@ namespace AspnetCoreEmpty
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSingleton<IMensagemService, TextoMensagemService>();
+            services.AddSingleton(provider => _config);
+            services.AddSingleton<IMensagemService, ConfigurationMensagemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMensagemService msg)
         {
             if (env.IsDevelopment())
             {
@@ -41,12 +45,15 @@ namespace AspnetCoreEmpty
 
             app.Run(async (context) =>
             {
-                var mensagem = _config["Mensagem"];
+                /*var mensagem = _config["Mensagem"];
                 var conexao = _config["ConnectionStrings:DefaultConnection"];
 
                 await context.Response.WriteAsync(mensagem);
-                await context.Response.WriteAsync(conexao);
+                await context.Response.WriteAsync(conexao);*/
+                await context.Response.WriteAsync(msg.GetMensagem());
+
             });
+
         }
     }
 }
