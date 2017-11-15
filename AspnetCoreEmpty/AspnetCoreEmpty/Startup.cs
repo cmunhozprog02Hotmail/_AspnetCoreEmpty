@@ -43,6 +43,11 @@ namespace AspnetCoreEmpty
                 app.UseDeveloperExceptionPage();
                 
             }
+            else
+            {
+                //app.UseExceptionHandler();
+                app.UseStatusCodePages();
+            }
             app.UseStaticFiles();
 
             app.Run(async (context) =>

@@ -16,6 +16,7 @@ namespace AspnetCoreEmpty.Services
         }
         public string GetMensagem()
         {
+            throw new Exception("Testando variáveis de ambiente");
             return _config["Mensagem"];
             
         }
