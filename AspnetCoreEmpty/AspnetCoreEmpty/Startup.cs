@@ -41,7 +41,9 @@ namespace AspnetCoreEmpty
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
+            app.UseStaticFiles();
 
             app.Run(async (context) =>
             {
