@@ -33,6 +33,10 @@ namespace AspnetCoreEmpty
             //services.AddSingleton<IMensagemService, TextoMensagemService>();
             services.AddSingleton(provider => _config);
             services.AddSingleton<IMensagemService, ConfigurationMensagemService>();
+            // Add Cache
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +53,8 @@ namespace AspnetCoreEmpty
                 app.UseStatusCodePages();
             }
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.Run(async (context) =>
             {
